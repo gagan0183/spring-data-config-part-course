@@ -5,3 +5,7 @@ insert into book(book_id, title, publish_date, page_count, price) values (4,'War
 insert into book(book_id, title, publish_date, page_count, price) values (5,'The Grapes of Wrath', '1955-11-08', 100, 16.00);
 insert into book(book_id, title, publish_date, page_count, price) values (6,'Design Patterns', '1996-11-08', 100, 14.00);
 insert into book(book_id, title, publish_date, page_count, price) values (7,'A Tale of Two Cities', '1943-11-08', 100, 15.00);
+
+insert into author(id, author_name, book_id) values (1, "name 1", 3);
+insert into author(id, author_name, book_id) values (1, "name 2", 6);
+

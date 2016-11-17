@@ -5,10 +5,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BookService {
+
 	@Autowired
-	private BookRepository bookRepository;
+	private BookRepository repo;
 
 	public void save(Book book) {
-		bookRepository.save(book);
+		this.repo.save(book);
 	}
 }

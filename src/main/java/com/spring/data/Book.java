@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -15,27 +17,47 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "BOOK")
 @NamedQueries({ @NamedQuery(name = "Book.queryOne", query = "select b from Book b"),
-		@NamedQuery(name = "Book.query", query = "select b from Book b where pageCount > ?1"),
-		@NamedQuery(name = "Book.queri", query = "select b from Book b where title = :title") })
+		@NamedQuery(name = "Book.queryTwo", query = "select b from Book b where b.pageCount > ?1"),
+		@NamedQuery(name = "Book.queryThree", query = "select b from Book b where b.title = :title") })
 public class Book {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "book_id")
-	private long bookId;
-	@Column(name = "title")
+	@Column(name = "BOOK_ID")
+	private Long bookId;
+
+	@Column(name = "TITLE")
 	private String title;
-	@Column(name = "publish_date")
+
+	@Column(name = "PUBLISH_DATE")
 	private Date publishDate;
-	@Column(name = "page_count")
+
+	@Column(name = "PAGE_COUNT")
 	private int pageCount;
-	@Column(name = "price")
+
+	@Column(name = "PRICE")
 	private BigDecimal price;
 
-	public long getBookId() {
+	@ManyToOne
+	@JoinColumn(name = "AUTHOR_ID")
+	private Author author;
+
+	public Book() {
+
+	}
+
+	public Book(String title, Date publishDate, int pageCount, BigDecimal price) {
+		this.title = title;
+		this.publishDate = publishDate;
+		this.pageCount = pageCount;
+		this.price = price;
+	}
+
+	public Long getBookId() {
 		return bookId;
 	}
 
-	public void setBookId(long bookId) {
+	public void setBookId(Long bookId) {
 		this.bookId = bookId;
 	}
 
@@ -71,9 +93,18 @@ public class Book {
 		this.price = price;
 	}
 
+	public Author getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(Author author) {
+		this.author = author;
+	}
+
 	@Override
 	public String toString() {
 		return "Book [bookId=" + bookId + ", title=" + title + ", publishDate=" + publishDate + ", pageCount="
-				+ pageCount + ", price=" + price + "]";
+				+ pageCount + ", price=" + price + ", author=" + author + "]";
 	}
+
 }
